@@ -1,34 +1,47 @@
-const blockAds = () => {
-  let interval;
-  let video = document.querySelector("video");
-  let blocked = 0;
-
-  const handleSkip = () => {
-    const skipBtn = document.querySelector(".ytp-ad-skip-button");
-    if (skipBtn) {
-      skipBtn.click();
-    }
-  };
-
-  const videoDuration = () => {
+const handle = {
+  counter: {
+    skip: 0,
+    duration: 0,
+  },
+  detectAds: () => {
     const adShowing = document.querySelector(".ad-showing");
-
-    if (adShowing && video.currentTime) {
+    return adShowing ? true : false;
+  },
+  detectSkipBtn: () => {
+    const skipBtn = document.querySelector(".ytp-ad-skip-button-modern");
+    return skipBtn ? true : false;
+  },
+  jumpDuration: () => {
+    const video = document.querySelector("video");
+    if (video.currentTime) {
       video.currentTime = video.duration;
-      blocked++;
-      console.log(`屏蔽的广告数量: ${blocked}`);
-      handleSkip();
+      handle.counter.duration++;
+      handle.message();
     }
-  };
-
-  function checkVideoNotNull() {
-    if (video) {
-      clearInterval(interval);
-      video.addEventListener("timeupdate", videoDuration);
-    }
-  }
-
-  interval = setInterval(checkVideoNotNull, 500); 
+  },
+  clickSkipBtn: () => {
+    const skipBtn = document.querySelector(".ytp-ad-skip-button-modern");
+    skipBtn.click();
+    handle.counter.skip++;
+    handle.message();
+  },
+  message: () => {
+    console.log(`跳转广告: ${handle.counter.duration} 次`);
+    console.log(`点击跳过: ${handle.counter.skip} 次`);
+  },
 };
 
-blockAds();
+const blockYouTubeAds = () => {
+  setInterval(() => {
+    const detectAds = handle.detectAds();
+    const detectSkipBtn = handle.detectSkipBtn();
+    if (detectAds) {
+      handle.jumpDuration();
+    }
+    if (detectSkipBtn) {
+      handle.clickSkipBtn();
+    }
+  }, 500);
+};
+
+blockYouTubeAds();

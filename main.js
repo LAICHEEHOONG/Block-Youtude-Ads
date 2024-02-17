@@ -1,4 +1,6 @@
 const blockAds = () => {
+  let interval;
+  let video = document.querySelector("video");
   let blocked = 0;
 
   const handleSkip = () => {
@@ -10,7 +12,6 @@ const blockAds = () => {
 
   const videoDuration = () => {
     const adShowing = document.querySelector(".ad-showing");
-    const video = document.querySelector("video");
 
     if (adShowing && video.currentTime) {
       video.currentTime = video.duration;
@@ -20,7 +21,14 @@ const blockAds = () => {
     }
   };
 
-  document.querySelector("video").addEventListener("timeupdate", videoDuration);
+  function checkVideoNotNull() {
+    if (video) {
+      clearInterval(interval);
+      video.addEventListener("timeupdate", videoDuration);
+    }
+  }
+
+  interval = setInterval(checkVideoNotNull, 500); 
 };
 
 blockAds();

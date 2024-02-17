@@ -4,12 +4,12 @@ const blockAds = () => {
 
   const handleSkip = () => {
     const skipBtn = document.querySelector(".ytp-ad-skip-button");
-    if(skipBtn) {
+    if (skipBtn) {
       skipBtn.click();
     }
   };
 
-  const videoDuration = async () => {
+  const videoDuration = () => {
     const adShowing = document.querySelector(".ad-showing");
     if (adShowing && video.currentTime) {
       video.currentTime = video.duration;
@@ -19,8 +19,8 @@ const blockAds = () => {
     }
   };
 
-  const handleTimeUpdate = async () => {
-    await videoDuration();
+  const handleTimeUpdate = () => {
+    videoDuration();
   };
 
   video.addEventListener("timeupdate", handleTimeUpdate);

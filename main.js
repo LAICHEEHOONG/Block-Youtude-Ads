@@ -1,25 +1,26 @@
 const blockAds = () => {
-  const video = document.querySelector("video");
   let blocked = 0;
 
-  const handleSkip = async () => {
+  const handleSkip = () => {
     const skipBtn = document.querySelector(".ytp-ad-skip-button");
     if (skipBtn) {
       skipBtn.click();
     }
   };
 
-  const videoDuration = async () => {
+  const videoDuration = () => {
     const adShowing = document.querySelector(".ad-showing");
+    const video = document.querySelector("video");
+
     if (adShowing && video.currentTime) {
       video.currentTime = video.duration;
       blocked++;
       console.log(`屏蔽的广告数量: ${blocked}`);
-      await handleSkip();
+      handleSkip();
     }
   };
 
-  video.addEventListener("timeupdate", videoDuration);
+  document.querySelector("video").addEventListener("timeupdate", videoDuration);
 };
 
 blockAds();

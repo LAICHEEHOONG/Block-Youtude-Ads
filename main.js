@@ -3,6 +3,7 @@ const handle = {
     skip: 0,
     duration: 0,
     time: "",
+    videoDuration: 0
   },
   detectAds: () => {
     const adShowing = document.querySelector(".ad-showing");
@@ -15,6 +16,7 @@ const handle = {
   jumpDuration: () => {
     const video = document.querySelector("video");
     if (video.currentTime) {
+      handle.counter.videoDuration += video.duration;
       video.currentTime = video.duration;
       handle.counter.duration++;
       handle.recordTime();
@@ -31,6 +33,7 @@ const handle = {
   message: () => {
     console.log("*************** Block Youtube Ads ***************");
     console.log(`                  跳转广告: ${handle.counter.duration} 次`);
+    console.log(`                  跳转广告总时长: ${handle.counter.videoDuration} 秒`);
     console.log(`                  点击跳过: ${handle.counter.skip} 次`);
     console.log(`                  时间: ${handle.counter.time}`);
   },
@@ -57,7 +60,7 @@ const blockYouTubeAds = () => {
     if (detectSkipBtn) {
       handle.clickSkipBtn();
     }
-  }, 0);
+  }, 500);
 };
 
 blockYouTubeAds();

@@ -46,3 +46,23 @@ body {
     align-items: center;
     margin-bottom: 10px;
 }
+
+.btn {
+    width: 190px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-color: #ccc;
+}
+
+.progress {
+    width: 190px;
+    margin-left: 10px;
+    height: 6px;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    background-color: #6d6d6d;
+    width: 0;
+}
+
+

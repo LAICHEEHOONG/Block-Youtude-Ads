@@ -70,6 +70,7 @@ const handle = {
       }
     });
   },
+
   blockYouTubeAds: () => {
     handle.counter.intervalId = setInterval(() => {
       const detectAds = handle.detectAds();

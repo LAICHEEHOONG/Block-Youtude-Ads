@@ -64,7 +64,7 @@ const handle = {
         handle.counter.activate = 'off';
       }
 
-      if(request.activate === 'on') {
+      if (request.activate === 'on') {
         handle.counter.activate = 'on'
         handle.blockYouTubeAds();
       }
@@ -83,45 +83,15 @@ const handle = {
       if (handle.counter.activate === 'off') {
         clearInterval(handle.counter.intervalId);
       }
-      console.log('blockYouTubeAds')
     }, 500);
   }
 
 };
 
-// let intervalId;
 
-// const blockYouTubeAds = () => {
-//   intervalId = setInterval(() => {
-//     const detectAds = handle.detectAds();
-//     const detectSkipBtn = handle.detectSkipBtn();
-//     if (detectAds) {
-//       handle.jumpDuration();
-//     }
-//     if (detectSkipBtn) {
-//       handle.clickSkipBtn();
-//     }
-//     if(handle.counter.activate === 'off') {
-//       clearInterval(intervalId);
-//     }
-//   }, 500);
-// };
-
-// const toggleInterval = (isIntervalRunning) => {
-//   if (isIntervalRunning) {
-//     clearInterval(intervalId);
-//     isIntervalRunning = false;
-//   } else {
-//     blockYouTubeAds();
-//     isIntervalRunning = true;
-//   }
-// };
 
 handle.getTabId();
 handle.blockYouTubeAds();
-// if(handle.counter.activate === 'on') {
-//   handle.blockYouTubeAds();
-// }
 
 
 

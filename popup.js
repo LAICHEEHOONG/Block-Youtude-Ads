@@ -52,14 +52,6 @@ const handle = {
         });
     },
     clickButton: () => {
-
-        // if (handle.data.activate === 'on') {
-        //     handle.data.stopButton.style.display = 'block';
-        //     handle.data.startButton.style.display = 'none';
-        // } else if (handle.data.activate === 'off') {
-        //     handle.data.stopButton.style.display = 'none';
-        //     handle.data.startButton.style.display = 'block';
-        // }
         document.querySelector('.stop-btn').addEventListener('click', () => {
             handle.offExtension();
             handle.data.stopButton.style.display = 'none';

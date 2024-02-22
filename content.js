@@ -7,6 +7,7 @@ const handle = {
     tabId: '',
     activate: 'on',
     intervalId: '',
+    language: 'english'
   },
   detectAds: () => {
     const adShowing = document.querySelector(".ad-showing");
@@ -63,14 +64,15 @@ const handle = {
       if (request.activate === 'off') {
         handle.counter.activate = 'off';
       }
-
       if (request.activate === 'on') {
         handle.counter.activate = 'on'
         handle.blockYouTubeAds();
       }
+      if(request.language) {
+        handle.counter.language = request.language; 
+      }
     });
   },
-
   blockYouTubeAds: () => {
     handle.counter.intervalId = setInterval(() => {
       const detectAds = handle.detectAds();

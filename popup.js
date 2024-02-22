@@ -42,30 +42,6 @@ const handle = {
             if (message.type === "dataUpdated" && handle.data.currentTabId === message.data.tabId) {
                 handle.data.messageData = message.data;
                 handle.displayText(message.data)
-                // handle.data.progressBar.style.display = 'flex'
-                //     const { duration, skip, time, videoDuration, tabId, activate, language } = message.data;
-
-                //     if (language === 'chinese') {
-                //         handle.data.popupContent.innerHTML = `
-                //     <div class="text">Tab ID: ${tabId} </div>
-                //     <div class="text">跳转广告: ${duration} 次</div>
-                //     <div class="text">点击跳过: ${skip} 次</div>
-                //     <div class="text">时间: ${time}</div>
-                //     <div class="text">跳转广告总时长: ${videoDuration.toFixed(2)} 秒</div>
-                // `;
-                //         chineseButton.style.display = 'none';
-                //     }
-
-                //     if (language === 'english') {
-                //         handle.data.popupContent.innerHTML = `
-                //     <div class="text">Tab ID: ${tabId} </div>
-                //     <div class="text">Jump ads: ${duration}</div>
-                //     <div class="text">Click to skip: ${skip}</div>
-                //     <div class="text">Time: ${time}</div>
-                //     <div class="text">Total ad duration: ${videoDuration.toFixed(2)}s</div>
-                // `;
-                //     }
-
                 handle.runProgressBar();
             }
         });
@@ -159,10 +135,6 @@ const handle = {
             handle.data.englishButton.style.display = 'none';
         }
     }
-
-
-
-
 }
 
 

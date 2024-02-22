@@ -3,7 +3,7 @@ body {
 }
 
 #popup-content {
-    width: 190px;
+    width: 210px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,7 +33,7 @@ body {
     
 }
 .start-title {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .spinner-border {
@@ -67,7 +67,7 @@ body {
 }
 
 .progress {
-    width: 190px;
+    width: 210px;
     margin-left: 10px;
     height: 6px;
     margin-bottom: 10px;

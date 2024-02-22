@@ -35,11 +35,11 @@ const handle = {
     handle.message();
   },
   message: () => {
-    console.log("*************** Block Youtube Ads ***************");
-    console.log(`                  跳转广告: ${handle.counter.duration} 次`);
-    console.log(`                  跳转广告总时长: ${handle.counter.videoDuration.toFixed(2)} 秒`);
-    console.log(`                  点击跳过: ${handle.counter.skip} 次`);
-    console.log(`                  时间: ${handle.counter.time}`);
+    // console.log("*************** Block Youtube Ads ***************");
+    // console.log(`                  跳转广告: ${handle.counter.duration} 次`);
+    // console.log(`                  跳转广告总时长: ${handle.counter.videoDuration.toFixed(2)} 秒`);
+    // console.log(`                  点击跳过: ${handle.counter.skip} 次`);
+    // console.log(`                  时间: ${handle.counter.time}`);
   },
   recordTime: () => {
     const currentTime = new Date();

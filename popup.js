@@ -104,11 +104,13 @@ const handle = {
         handle.displayText(handle.data.messageData);
     },
     displayText: (data) => {
-        const { duration, skip, time, videoDuration, tabId, activate, language } = data;
+        const { duration, skip, time, videoDuration, tabId, activate, language, accountName, accountId } = data;
         console.log(activate)
         handle.displayBtnGroup(activate);
         if (language === 'chinese') {
             handle.data.popupContent.innerHTML = `
+        <div class="text">名字: ${accountName} </div>
+        <div class="text">Youtube ID: ${accountId} </div>
         <div class="text">Tab ID: ${tabId} </div>
         <div class="text">跳转广告: ${duration} 次</div>
         <div class="text">点击跳过: ${skip} 次</div>
@@ -123,6 +125,8 @@ const handle = {
 
         if (language === 'english') {
             handle.data.popupContent.innerHTML = `
+        <div class="text">Name: ${accountName} </div>
+        <div class="text">Youtube ID: ${accountId} </div>
         <div class="text">Tab ID: ${tabId} </div>
         <div class="text">Jump ads: ${duration}</div>
         <div class="text">Click to skip: ${skip}</div>

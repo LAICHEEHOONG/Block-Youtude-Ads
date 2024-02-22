@@ -7,7 +7,11 @@ const handle = {
     tabId: '',
     activate: 'on',
     intervalId: '',
-    language: 'english'
+    language: 'english',
+    accountName: '',
+    accountId: '',
+    endDate: '',
+    unlimited: false
   },
   detectAds: () => {
     const adShowing = document.querySelector(".ad-showing");
@@ -68,12 +72,14 @@ const handle = {
         handle.counter.activate = 'on'
         handle.blockYouTubeAds();
       }
-      if(request.language) {
-        handle.counter.language = request.language; 
+      if (request.language) {
+        handle.counter.language = request.language;
       }
     });
   },
   blockYouTubeAds: () => {
+
+    // handle.getUserNameAndId();
     handle.counter.intervalId = setInterval(() => {
       const detectAds = handle.detectAds();
       const detectSkipBtn = handle.detectSkipBtn();
@@ -87,14 +93,57 @@ const handle = {
         clearInterval(handle.counter.intervalId);
       }
     }, 500);
-  }
+  },
+  clickAvatar: () => {
+    const avatar = document.getElementById('avatar-btn');
+    if (avatar) {
+      avatar.click();
+      avatar.click();
+    }
 
+  },
+  getUserNameAndId: () => {
+    let clickAvatar = false;
+    let getIdAndNameInterval = setInterval(() => {
+      const avatar = document.getElementById('avatar-btn');
+      if (avatar && !clickAvatar) {
+        avatar.click();
+        clickAvatar = true;
+      }
+      if (!handle.counter.accountName || !handle.counter.accountId) {
+        const accountName = document.getElementById('account-name');
+        const channelHandle = document.getElementById('channel-handle');
+        if (accountName) {
+          handle.counter.accountName = accountName.innerHTML;
+        }
+        if (channelHandle) {
+          handle.counter.accountId = channelHandle.innerHTML;
+        }
+      }
+
+      if (handle.counter.accountName && handle.counter.accountId) {
+        if (clickAvatar) {
+          avatar.click();
+        }
+        clearInterval(getIdAndNameInterval)
+      }
+    }, 1000)
+
+  }
 };
 
-
-
 handle.getTabId();
+handle.getUserNameAndId();
 handle.blockYouTubeAds();
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,6 @@
 
 
+
 const handle = {
     data: {
         currentTabId: '',
@@ -105,7 +106,6 @@ const handle = {
     },
     displayText: (data) => {
         const { duration, skip, time, videoDuration, tabId, activate, language, accountName, accountId } = data;
-        console.log(activate)
         handle.displayBtnGroup(activate);
         if (language === 'chinese') {
             handle.data.popupContent.innerHTML = `
@@ -146,6 +146,30 @@ handle.getTabId();
 handle.render();
 handle.clickButton();
 
+fetch('https://block-youtube-ads-server.vercel.app/users', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      // Add any other headers if needed
+    },
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Response:', data);
+      // Handle the response as needed
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Handle errors
+    });
+
+
+  
 
 
 

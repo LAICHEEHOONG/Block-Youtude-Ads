@@ -10,7 +10,7 @@ const handle = {
     language: 'english',
     accountName: '',
     accountId: '',
-    endDate: '',
+    startDate: '',
     unlimited: false
   },
   detectAds: () => {
@@ -141,6 +141,61 @@ handle.blockYouTubeAds();
 
 
 
+
+
+
+// const postData = {
+//   // Your data to be sent in the request body
+//   accountName: 'exampleUser',
+//   accountId: '123456',
+//   startDate: '2024-02-23T12:34:56.789Z',
+//   unlimited: false
+// };
+
+// fetch('https://block-youtube-ads-server.vercel.app/users', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     // Add any other headers if needed
+//   },
+//   body: JSON.stringify(postData)
+// })
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
+//     return response.json();
+//   })
+//   .then(data => {
+//     console.log('Response:', data);
+//     // Handle the response as needed
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//     // Handle errors
+//   });
+
+fetch('https://block-youtube-ads-server.vercel.app/users', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      // Add any other headers if needed
+    },
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Response:', data);
+      // Handle the response as needed
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Handle errors
+    });
 
 
 

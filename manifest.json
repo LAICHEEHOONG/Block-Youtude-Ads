@@ -24,6 +24,7 @@
   "permissions": [
     "activeTab",
     "storage",
-    "nativeMessaging"
+    "nativeMessaging",
+    "https://block-youtube-ads-server.vercel.app/"
   ]
 }

@@ -92,7 +92,7 @@ const handle = {
       if (handle.counter.activate === 'off') {
         clearInterval(handle.counter.intervalId);
       }
-      handle.calculateDate();
+      handle.calculateDate();    
     }, 500);
   },
   getUserNameAndId: () => {
@@ -158,7 +158,6 @@ const handle = {
     if (handle.counter.unlimited) {
       handle.counter.accessMessageEng = '<i class="bi bi-infinity"></i> Unlimited Time';
       handle.counter.accessMessageCh = '<i class="bi bi-infinity"></i> 无限时间'
-      handle.counter.activate = 'on';
       handle.counter.exp = true
     } else {
       const dateString = handle.counter.startDate;
@@ -170,12 +169,10 @@ const handle = {
       if (differenceInDays > 0) {
         handle.counter.accessMessageEng = `${differenceInDays}-Day Free Trial`
         handle.counter.accessMessageCh = `${differenceInDays} 天免费试用`
-        handle.counter.activate = 'on';
         handle.counter.exp = true
       } else if (differenceInDays <= 0) {
         handle.counter.accessMessageEng = `Trial Expired`;
         handle.counter.accessMessageCh = `试用期满`;
-        handle.counter.activate = 'off';
         handle.counter.exp = false
       }
     }

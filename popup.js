@@ -108,7 +108,7 @@ const handle = {
             if (language === 'chinese') {
                 handle.data.popupContent.innerHTML = `
             <span class="badge rounded-pill text-bg-light">${accessMessageCh}</span>
-            <div class="text">Youtube 名字: ${accountName.length > 17 ? accountName.substring(0, 17) + '...' : accountName}</div>
+            <div class="text">名字: ${accountName.length > 17 ? accountName.substring(0, 17) + '...' : accountName}</div>
             <div class="text">Tab ID: ${tabId} </div>
             <div class="text">跳转广告: ${duration} 次</div>
             <div class="text">点击跳过: ${skip} 次</div>

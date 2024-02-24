@@ -9,7 +9,6 @@ const handle = {
     intervalId: '',
     language: 'english',
     accountName: '',
-    accountId: '',
     startDate: new Date(),
     unlimited: false,
     accessMessageEng: '',
@@ -96,7 +95,6 @@ const handle = {
       handle.calculateDate();
     }, 500);
   },
-
   getUserNameAndId: () => {
     let clickAvatar = false;
     let getIdAndNameInterval = setInterval(() => {
@@ -105,18 +103,13 @@ const handle = {
         avatar.click();
         clickAvatar = true;
       }
-      if (!handle.counter.accountName || !handle.counter.accountId) {
+      if (!handle.counter.accountName) {
         const accountName = document.getElementById('account-name');
-        const channelHandle = document.getElementById('channel-handle');
         if (accountName) {
           handle.counter.accountName = accountName.innerHTML;
         }
-        if (channelHandle) {
-          handle.counter.accountId = channelHandle.innerHTML;
-        }
       }
-
-      if (handle.counter.accountName && handle.counter.accountId) {
+      if (handle.counter.accountName) {
         if (clickAvatar) {
           avatar.click();
         }
@@ -129,7 +122,6 @@ const handle = {
   connectDB: () => {
     const postData = {
       accountName: handle.counter.accountName,
-      accountId: handle.counter.accountId,
       startDate: handle.counter.startDate,
       unlimited: handle.counter.unlimited
     }
@@ -147,9 +139,8 @@ const handle = {
         return response.json();
       })
       .then(data => {
-        const { accountName, accountId, startDate, unlimited } = data.accountInfo;
+        const { accountName, startDate, unlimited } = data.accountInfo;
         handle.counter.accountName = accountName;
-        handle.counter.accountId = accountId;
         handle.counter.startDate = startDate,
           handle.counter.unlimited = unlimited;
         return true

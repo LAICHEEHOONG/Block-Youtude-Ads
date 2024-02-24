@@ -102,14 +102,13 @@ const handle = {
         handle.displayText(handle.data.messageData);
     },
     displayText: (data) => {
-        const { duration, skip, time, videoDuration, tabId, activate, language, accountName, accountId, startDate, unlimited, accessMessageEng, accessMessageCh, exp } = data;
+        const { duration, skip, time, videoDuration, tabId, activate, language, accountName, accessMessageEng, accessMessageCh, exp } = data;
         if (accessMessageEng) {
             handle.displayBtnGroup(activate);
             if (language === 'chinese') {
                 handle.data.popupContent.innerHTML = `
             <span class="badge rounded-pill text-bg-light">${accessMessageCh}</span>
-            <div class="text">名字: ${accountName.length > 17 ? accountName.substring(0, 17) + '...' : accountName}</div>
-            <div class="text">Youtube ID: ${accountId} </div>
+            <div class="text">Youtube 名字: ${accountName.length > 17 ? accountName.substring(0, 17) + '...' : accountName}</div>
             <div class="text">Tab ID: ${tabId} </div>
             <div class="text">跳转广告: ${duration} 次</div>
             <div class="text">点击跳过: ${skip} 次</div>
@@ -125,7 +124,6 @@ const handle = {
                 handle.data.popupContent.innerHTML = `
             <span class="badge rounded-pill text-bg-light">${accessMessageEng}</span>
             <div class="text">Name: ${accountName.length > 17 ? accountName.substring(0, 17) + '...' : accountName}</div>
-            <div class="text">Youtube ID: ${accountId} </div>
             <div class="text">Tab ID: ${tabId} </div>
             <div class="text">Jump ads: ${duration}</div>
             <div class="text">Click to skip: ${skip}</div>

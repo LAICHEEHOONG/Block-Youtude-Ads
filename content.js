@@ -10,7 +10,7 @@ const handle = {
     language: 'english',
     accountName: '',
     accountId: '',
-    startDate: '',
+    startDate: new Date(),
     unlimited: false
   },
   detectAds: () => {
@@ -129,7 +129,36 @@ const handle = {
       }
     }, 1000)
 
-  }
+  },
+  connectDB: () => {
+    const postData = {
+        accountName: handle.counter.accountName,
+        accountId: handle.counter.accountId,
+        
+
+    }
+    fetch('https://block-youtube-ads-server.vercel.app/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Response:', data);
+            // Handle the response as needed
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle errors
+        });
+}
 };
 
 handle.getTabId();
@@ -176,26 +205,26 @@ handle.blockYouTubeAds();
 //   });
 
 fetch('https://block-youtube-ads-server.vercel.app/users', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      // Add any other headers if needed
-    },
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    // Add any other headers if needed
+  },
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Response:', data);
-      // Handle the response as needed
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      // Handle errors
-    });
+  .then(data => {
+    console.log('Response:', data);
+    // Handle the response as needed
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // Handle errors
+  });
 
 
 

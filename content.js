@@ -11,7 +11,10 @@ const handle = {
     accountName: '',
     accountId: '',
     startDate: new Date(),
-    unlimited: false
+    unlimited: false,
+    accessMessageEng: '',
+    accessMessageCh: '',
+    exp: true
   },
   detectAds: () => {
     const adShowing = document.querySelector(".ad-showing");
@@ -78,8 +81,6 @@ const handle = {
     });
   },
   blockYouTubeAds: () => {
-
-    // handle.getUserNameAndId();
     handle.counter.intervalId = setInterval(() => {
       const detectAds = handle.detectAds();
       const detectSkipBtn = handle.detectSkipBtn();
@@ -92,16 +93,11 @@ const handle = {
       if (handle.counter.activate === 'off') {
         clearInterval(handle.counter.intervalId);
       }
+      handle.calculateDate();
+      console.log('blockYouTubeAds')
     }, 500);
   },
-  clickAvatar: () => {
-    const avatar = document.getElementById('avatar-btn');
-    if (avatar) {
-      avatar.click();
-      avatar.click();
-    }
 
-  },
   getUserNameAndId: () => {
     let clickAvatar = false;
     let getIdAndNameInterval = setInterval(() => {
@@ -145,32 +141,67 @@ const handle = {
       },
       body: JSON.stringify(postData)
     })
-      .then(res => {
-        console.log(res.data);
+      .then(response => {
+        if (!response.ok) {
+          console.log(`HTTP error! Status: ${response.status}`)
+          // throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
       })
-      .catch(err => {
-        console.log(err)
+      .then(data => {
+        const { accountName, accountId, startDate, unlimited } = data.accountInfo;
+        handle.counter.accountName = accountName;
+        handle.counter.accountId = accountId;
+        handle.counter.startDate = startDate,
+        handle.counter.unlimited = unlimited;
+        return true
       })
-    // .then(response => {
-    //     if (!response.ok) {
-    //         throw new Error(`HTTP error! Status: ${response.status}`);
-    //     }
-    //     return response.json();
-    // })
-    // .then(data => {
-    //     console.log('Response:', data);
-    //     // Handle the response as needed
-    // })
-    // .catch(error => {
-    //     console.error('Error:', error);
-    //     // Handle errors
-    // });
+      .then(run => {
+        if(run) {
+          handle.blockYouTubeAds()
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Handle errors
+      });
+  },
+  calculateDate: () => {
+    if (handle.counter.unlimited) {
+      handle.counter.accessMessageEng = `<i class="bi bi-infinity"></i> Unlimited Use`;//无限制访问
+      handle.counter.accessMessageCh = '<i class="bi bi-infinity"></i> 无限制使用'
+      handle.counter.activate = 'on';
+      handle.counter.exp = true
+    } else {
+      const dateString = handle.counter.startDate;
+      const providedDate = new Date(dateString);
+      const currentDate = new Date();
+      const differenceInMilliseconds = currentDate - providedDate;
+
+      const differenceInDays = (0.0010 - differenceInMilliseconds / (1000 * 60 * 60 * 24));
+      if (differenceInDays > 0) {
+        handle.counter.accessMessageEng = `${differenceInDays}-Day Free Trial`
+        handle.counter.accessMessageCh = `${differenceInDays}天免费试用`
+        handle.counter.activate = 'on';
+        handle.counter.exp = true
+      } else if (differenceInDays <= 0) {
+        handle.counter.accessMessageEng = `Trial Expired`;//试用期满
+        handle.counter.accessMessageCh = `试用期满`;
+        handle.counter.activate = 'off';
+        handle.counter.exp = false
+      }
+    }
+
+
+
+
+
   }
 };
 
 handle.getTabId();
 handle.getUserNameAndId();
-handle.blockYouTubeAds();
+// handle.blockYouTubeAds();
 
 
 
@@ -211,27 +242,27 @@ handle.blockYouTubeAds();
 //     // Handle errors
 //   });
 
-fetch('https://block-youtube-ads-server.vercel.app/users', {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-    // Add any other headers if needed
-  },
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Response:', data);
-    // Handle the response as needed
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    // Handle errors
-  });
+// fetch('https://block-youtube-ads-server.vercel.app/users', {
+//   method: 'GET',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     // Add any other headers if needed
+//   },
+// })
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
+//     return response.json();
+//   })
+//   .then(data => {
+//     console.log('Response:', data);
+//     // Handle the response as needed
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//     // Handle errors
+//   });
 
 
 

@@ -11,9 +11,12 @@ const handle = {
         chineseButton: document.querySelector('.btn-ch'),
         englishButton: document.querySelector('.btn-eng'),
         popupContent: document.querySelector('#popup-content'),
+        expButton: document.querySelector('.exp'),
         progressBarPercentage: 0,
         intervalBar: '',
-        messageData: {}
+        messageData: {},
+        accessMessageEng: '',
+        accessMessageCh: '',
     },
     getTabId: () => {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -105,10 +108,11 @@ const handle = {
         handle.displayText(handle.data.messageData);
     },
     displayText: (data) => {
-        const { duration, skip, time, videoDuration, tabId, activate, language, accountName, accountId } = data;
+        const { duration, skip, time, videoDuration, tabId, activate, language, accountName, accountId, startDate, unlimited, accessMessageEng, accessMessageCh, exp} = data;
         handle.displayBtnGroup(activate);
         if (language === 'chinese') {
             handle.data.popupContent.innerHTML = `
+        <span class="badge rounded-pill text-bg-light">${accessMessageCh}</span>
         <div class="text">名字: ${accountName} </div>
         <div class="text">Youtube ID: ${accountId} </div>
         <div class="text">Tab ID: ${tabId} </div>
@@ -121,10 +125,11 @@ const handle = {
             handle.data.startButton.innerHTML = '启动';
             handle.data.chineseButton.style.display = 'none';
             handle.data.englishButton.style.display = 'block';
+            // handle.data.expButton.innerHTML = accessMessageCh;
         }
-
         if (language === 'english') {
             handle.data.popupContent.innerHTML = `
+        <span class="badge rounded-pill text-bg-light text">${accessMessageEng}</span>
         <div class="text">Name: ${accountName} </div>
         <div class="text">Youtube ID: ${accountId} </div>
         <div class="text">Tab ID: ${tabId} </div>
@@ -137,8 +142,22 @@ const handle = {
             handle.data.startButton.innerHTML = 'Start';
             handle.data.chineseButton.style.display = 'block';
             handle.data.englishButton.style.display = 'none';
+            // handle.data.expButton.innerHTML = accessMessageEng;
+        }    
+        // if(accessMessageEng) {
+        //     handle.data.expButton.style.display = 'block';
+        // }
+
+        handle.hideBtn(exp);
+    },
+    hideBtn: (expire) => {
+        if(!expire) {
+            handle.data.progressBar.style.display = 'none';
+            handle.data.stopButton.style.display = 'none';
+            handle.data.startButton.style.display = 'none';
         }
     }
+
 
 }
 
@@ -147,27 +166,8 @@ handle.getTabId();
 handle.render();
 handle.clickButton();
 
-// fetch('https://block-youtube-ads-server.vercel.app/users', {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       // Add any other headers if needed
-//     },
-//   })
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error(`HTTP error! Status: ${response.status}`);
-//       }
-//       return response.json();
-//     })
-//     .then(data => {
-//       console.log('Response:', data);
-//       // Handle the response as needed
-//     })
-//     .catch(error => {
-//       console.error('Error:', error);
-//       // Handle errors
-//     });
+
+
 
 
 

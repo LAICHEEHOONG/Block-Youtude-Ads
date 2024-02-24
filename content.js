@@ -126,39 +126,46 @@ const handle = {
           avatar.click();
         }
         clearInterval(getIdAndNameInterval)
+        handle.connectDB();
       }
     }, 1000)
 
   },
   connectDB: () => {
     const postData = {
-        accountName: handle.counter.accountName,
-        accountId: handle.counter.accountId,
-        
-
+      accountName: handle.counter.accountName,
+      accountId: handle.counter.accountId,
+      startDate: handle.counter.startDate,
+      unlimited: handle.counter.unlimited
     }
     fetch('https://block-youtube-ads-server.vercel.app/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postData)
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData)
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Response:', data);
-            // Handle the response as needed
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle errors
-        });
-}
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    // .then(response => {
+    //     if (!response.ok) {
+    //         throw new Error(`HTTP error! Status: ${response.status}`);
+    //     }
+    //     return response.json();
+    // })
+    // .then(data => {
+    //     console.log('Response:', data);
+    //     // Handle the response as needed
+    // })
+    // .catch(error => {
+    //     console.error('Error:', error);
+    //     // Handle errors
+    // });
+  }
 };
 
 handle.getTabId();

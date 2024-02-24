@@ -1,6 +1,4 @@
 
-
-
 const handle = {
     data: {
         currentTabId: '',
@@ -21,9 +19,6 @@ const handle = {
     getTabId: () => {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             handle.data.currentTabId = tabs[0].id;
-            // chrome.tabs.sendMessage(currentTabId, { tabId: currentTabId }, function (response) {
-            //     console.log(response);
-            // });
             chrome.tabs.sendMessage(handle.data.currentTabId, { tabId: handle.data.currentTabId });
         });
     },
@@ -78,7 +73,6 @@ const handle = {
             handle.setChinese();
             handle.languageRender();
         })
-
     },
     displayBtnGroup: (activate) => {
         if (activate === 'on' || activate === '') {
@@ -108,57 +102,57 @@ const handle = {
         handle.displayText(handle.data.messageData);
     },
     displayText: (data) => {
-        const { duration, skip, time, videoDuration, tabId, activate, language, accountName, accountId, startDate, unlimited, accessMessageEng, accessMessageCh, exp} = data;
-        handle.displayBtnGroup(activate);
-        if (language === 'chinese') {
-            handle.data.popupContent.innerHTML = `
-        <span class="badge rounded-pill text-bg-light">${accessMessageCh}</span>
-        <div class="text">名字: ${accountName} </div>
-        <div class="text">Youtube ID: ${accountId} </div>
-        <div class="text">Tab ID: ${tabId} </div>
-        <div class="text">跳转广告: ${duration} 次</div>
-        <div class="text">点击跳过: ${skip} 次</div>
-        <div class="text">时间: ${time}</div>
-        <div class="text">跳转广告总时长: ${videoDuration.toFixed(2)} 秒</div>
-    `;
-            handle.data.stopButton.innerHTML = '停止运行';
-            handle.data.startButton.innerHTML = '启动';
-            handle.data.chineseButton.style.display = 'none';
-            handle.data.englishButton.style.display = 'block';
-            // handle.data.expButton.innerHTML = accessMessageCh;
+        const { duration, skip, time, videoDuration, tabId, activate, language, accountName, accountId, startDate, unlimited, accessMessageEng, accessMessageCh, exp } = data;
+        if (accessMessageEng) {
+            handle.displayBtnGroup(activate);
+            if (language === 'chinese') {
+                handle.data.popupContent.innerHTML = `
+            <span class="badge rounded-pill text-bg-light">${accessMessageCh}</span>
+            <div class="text">名字: ${accountName.length > 17 ? accountName.substring(0, 17) + '...' : accountName}</div>
+            <div class="text">Youtube ID: ${accountId} </div>
+            <div class="text">Tab ID: ${tabId} </div>
+            <div class="text">跳转广告: ${duration} 次</div>
+            <div class="text">点击跳过: ${skip} 次</div>
+            <div class="text">时间: ${time}</div>
+            <div class="text">跳转广告总时长: ${videoDuration.toFixed(2)} 秒</div>
+        `;
+                handle.data.stopButton.innerHTML = '停止运行';
+                handle.data.startButton.innerHTML = '启动';
+                handle.data.chineseButton.style.display = 'none';
+                handle.data.englishButton.style.display = 'block';
+            }
+            if (language === 'english') {
+                handle.data.popupContent.innerHTML = `
+            <span class="badge rounded-pill text-bg-light">${accessMessageEng}</span>
+            <div class="text">Name: ${accountName.length > 17 ? accountName.substring(0, 17) + '...' : accountName}</div>
+            <div class="text">Youtube ID: ${accountId} </div>
+            <div class="text">Tab ID: ${tabId} </div>
+            <div class="text">Jump ads: ${duration}</div>
+            <div class="text">Click to skip: ${skip}</div>
+            <div class="text">Time: ${time}</div>
+            <div class="text">Total ad duration: ${videoDuration.toFixed(2)}s</div>
+        `;
+                handle.data.stopButton.innerHTML = 'Stop';
+                handle.data.startButton.innerHTML = 'Start';
+                handle.data.chineseButton.style.display = 'block';
+                handle.data.englishButton.style.display = 'none';
+            }
+            handle.hideBtn(exp);
         }
-        if (language === 'english') {
-            handle.data.popupContent.innerHTML = `
-        <span class="badge rounded-pill text-bg-light text">${accessMessageEng}</span>
-        <div class="text">Name: ${accountName} </div>
-        <div class="text">Youtube ID: ${accountId} </div>
-        <div class="text">Tab ID: ${tabId} </div>
-        <div class="text">Jump ads: ${duration}</div>
-        <div class="text">Click to skip: ${skip}</div>
-        <div class="text">Time: ${time}</div>
-        <div class="text">Total ad duration: ${videoDuration.toFixed(2)}s</div>
-    `;
-            handle.data.stopButton.innerHTML = 'Stop';
-            handle.data.startButton.innerHTML = 'Start';
-            handle.data.chineseButton.style.display = 'block';
-            handle.data.englishButton.style.display = 'none';
-            // handle.data.expButton.innerHTML = accessMessageEng;
-        }    
-        // if(accessMessageEng) {
-        //     handle.data.expButton.style.display = 'block';
-        // }
-
-        handle.hideBtn(exp);
     },
     hideBtn: (expire) => {
-        if(!expire) {
+        if (!expire) {
             handle.data.progressBar.style.display = 'none';
             handle.data.stopButton.style.display = 'none';
             handle.data.startButton.style.display = 'none';
+            const element = document.querySelector(".text-bg-light");
+
+            if (element && element.classList.contains("text-bg-light")) {
+                element.classList.remove("text-bg-light");
+                element.classList.add("text-bg-danger");
+            }
         }
     }
-
-
 }
 
 
@@ -167,7 +161,11 @@ handle.render();
 handle.clickButton();
 
 
-
+// "permissions": [
+//     "activeTab",
+//     "storage",
+//     "nativeMessaging"
+//   ]
 
 
 

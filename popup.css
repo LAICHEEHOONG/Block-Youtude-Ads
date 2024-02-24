@@ -81,13 +81,22 @@ body {
 .text-bg-light {
     background-color: #ccc !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    padding-top: 7px;
+    padding-top: 6px;
     color: white !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
     margin-bottom: 8px;
     letter-spacing: 1px;
 }
 
+.text-bg-danger {
+    /* background-color: #ccc !important; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    padding-top: 6px;
+    /* color: white !important; */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
 
 
 

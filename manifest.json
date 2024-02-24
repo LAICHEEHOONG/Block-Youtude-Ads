@@ -20,11 +20,6 @@
   "action": {
     "default_title": "Block Youtube Ads",
     "default_popup": "popup.html"
-  },
-  "permissions": [
-    "activeTab",
-    "storage",
-    "nativeMessaging",
-    "https://block-youtube-ads-server.vercel.app/"
-  ]
+  }
+
 }

@@ -94,7 +94,6 @@ const handle = {
         clearInterval(handle.counter.intervalId);
       }
       handle.calculateDate();
-      console.log('blockYouTubeAds')
     }, 500);
   },
 
@@ -144,7 +143,6 @@ const handle = {
       .then(response => {
         if (!response.ok) {
           console.log(`HTTP error! Status: ${response.status}`)
-          // throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
       })
@@ -153,23 +151,22 @@ const handle = {
         handle.counter.accountName = accountName;
         handle.counter.accountId = accountId;
         handle.counter.startDate = startDate,
-        handle.counter.unlimited = unlimited;
+          handle.counter.unlimited = unlimited;
         return true
       })
       .then(run => {
-        if(run) {
+        if (run) {
           handle.blockYouTubeAds()
         }
       })
       .catch(error => {
         console.error('Error:', error);
-        // Handle errors
       });
   },
   calculateDate: () => {
     if (handle.counter.unlimited) {
-      handle.counter.accessMessageEng = `<i class="bi bi-infinity"></i> Unlimited Use`;//无限制访问
-      handle.counter.accessMessageCh = '<i class="bi bi-infinity"></i> 无限制使用'
+      handle.counter.accessMessageEng = '<i class="bi bi-infinity"></i> Unlimited Time';
+      handle.counter.accessMessageCh = '<i class="bi bi-infinity"></i> 无限时间'
       handle.counter.activate = 'on';
       handle.counter.exp = true
     } else {
@@ -178,30 +175,24 @@ const handle = {
       const currentDate = new Date();
       const differenceInMilliseconds = currentDate - providedDate;
 
-      const differenceInDays = (0.0010 - differenceInMilliseconds / (1000 * 60 * 60 * 24));
+      const differenceInDays = (1 - differenceInMilliseconds / (1000 * 60 * 60 * 24)).toFixed(0);
       if (differenceInDays > 0) {
         handle.counter.accessMessageEng = `${differenceInDays}-Day Free Trial`
-        handle.counter.accessMessageCh = `${differenceInDays}天免费试用`
+        handle.counter.accessMessageCh = `${differenceInDays} 天免费试用`
         handle.counter.activate = 'on';
         handle.counter.exp = true
       } else if (differenceInDays <= 0) {
-        handle.counter.accessMessageEng = `Trial Expired`;//试用期满
+        handle.counter.accessMessageEng = `Trial Expired`;
         handle.counter.accessMessageCh = `试用期满`;
         handle.counter.activate = 'off';
         handle.counter.exp = false
       }
     }
-
-
-
-
-
   }
 };
 
 handle.getTabId();
 handle.getUserNameAndId();
-// handle.blockYouTubeAds();
 
 
 
@@ -211,58 +202,7 @@ handle.getUserNameAndId();
 
 
 
-// const postData = {
-//   // Your data to be sent in the request body
-//   accountName: 'exampleUser',
-//   accountId: '123456',
-//   startDate: '2024-02-23T12:34:56.789Z',
-//   unlimited: false
-// };
 
-// fetch('https://block-youtube-ads-server.vercel.app/users', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     // Add any other headers if needed
-//   },
-//   body: JSON.stringify(postData)
-// })
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status: ${response.status}`);
-//     }
-//     return response.json();
-//   })
-//   .then(data => {
-//     console.log('Response:', data);
-//     // Handle the response as needed
-//   })
-//   .catch(error => {
-//     console.error('Error:', error);
-//     // Handle errors
-//   });
-
-// fetch('https://block-youtube-ads-server.vercel.app/users', {
-//   method: 'GET',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     // Add any other headers if needed
-//   },
-// })
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status: ${response.status}`);
-//     }
-//     return response.json();
-//   })
-//   .then(data => {
-//     console.log('Response:', data);
-//     // Handle the response as needed
-//   })
-//   .catch(error => {
-//     console.error('Error:', error);
-//     // Handle errors
-//   });
 
 
 

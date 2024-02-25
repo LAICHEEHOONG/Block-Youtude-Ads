@@ -89,7 +89,7 @@ const handle = {
       if (detectSkipBtn) {
         handle.clickSkipBtn();
       }
-      if (handle.counter.activate === 'off') {
+      if (handle.counter.activate === 'off' || !handle.counter.exp) {
         clearInterval(handle.counter.intervalId);
       }
       handle.calculateDate();    

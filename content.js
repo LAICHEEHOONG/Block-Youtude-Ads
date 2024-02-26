@@ -165,7 +165,7 @@ const handle = {
       const currentDate = new Date();
       const differenceInMilliseconds = currentDate - providedDate;
 
-      const differenceInDays = (1 - differenceInMilliseconds / (1000 * 60 * 60 * 24)).toFixed(0);
+      const differenceInDays = (8 - differenceInMilliseconds / (1000 * 60 * 60 * 24)).toFixed(0);
       if (differenceInDays > 0) {
         handle.counter.accessMessageEng = `${differenceInDays}-Day Free Trial`
         handle.counter.accessMessageCh = `${differenceInDays} 天免费试用`

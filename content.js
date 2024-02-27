@@ -92,7 +92,7 @@ const handle = {
       if (handle.counter.activate === 'off' || !handle.counter.exp) {
         clearInterval(handle.counter.intervalId);
       }
-      handle.calculateDate();    
+      handle.calculateDate();
     }, 500);
   },
   getUserNameAndId: () => {
@@ -141,8 +141,8 @@ const handle = {
       .then(data => {
         const { accountName, startDate, unlimited } = data.accountInfo;
         handle.counter.accountName = accountName;
-        handle.counter.startDate = startDate,
-          handle.counter.unlimited = unlimited;
+        handle.counter.startDate = startDate;
+        handle.counter.unlimited = unlimited;
         return true
       })
       .then(run => {
